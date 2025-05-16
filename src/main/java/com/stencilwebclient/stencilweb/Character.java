@@ -1,6 +1,10 @@
 package com.stencilwebclient.stencilweb;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -9,8 +13,10 @@ import jakarta.persistence.Table;
 public class Character {
     
     @Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name="name")
     private String name;
     private String skin;
     private int xp;
@@ -38,7 +44,7 @@ public class Character {
         this.id = id;
     }*/
 
-    public String getName() {
+    public String getname() {
         return name;
     }
 
@@ -50,7 +56,7 @@ public class Character {
         return xp;
     }
 
-    /*public void setName(String name) {
+    /*public void setname(String name) {
         this.name = name;
     }
     public void setSkinPath(String skinPath) {
