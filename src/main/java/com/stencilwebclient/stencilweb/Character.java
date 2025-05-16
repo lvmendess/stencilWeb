@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="characters")
+@Table(name="Characters")
 public class Character {
     
     @Id
@@ -44,7 +44,7 @@ public class Character {
         this.id = id;
     }*/
 
-    public String getname() {
+    public String getName() {
         return name;
     }
 
