@@ -1,3 +1,32 @@
 body{
-    background-color: green;
+    background-image: url("/images/background2.png");
+}
+
+.grid{
+    display: flex;
+    flex-direction: row;
+}
+
+.charDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:10vw;
+    align-items: center;
+}
+
+.charName{
+    color: white;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+}
+
+#charSkin{
+    width: 4.5vw;
+    height: 4.5vw;
+    object-fit: none;
+    object-position: top;
+    image-rendering: pixelated;
+    transform: scale(1.5); /* 2x bigger */
+    transform-origin: top left;
 }
