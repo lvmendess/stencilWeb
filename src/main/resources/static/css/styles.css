@@ -5,6 +5,14 @@ body{
 .grid{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 60%;
+    border: white solid 0.2em;
+    margin: 5vh 0 0 2vh;
+}
+
+.charPanel{
+    max-width: 20%;
 }
 
 .charDiv{
@@ -13,20 +21,24 @@ body{
     justify-content: center;
     width:10vw;
     align-items: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
 }
 
 .charName{
     color: white;
     font-weight: bold;
-    margin-bottom: 0.3em;
+    margin-bottom: 1em;
 }
 
 #charSkin{
-    width: 4.5vw;
-    height: 4.5vw;
+    width: 3.9em;
+    height: 3.9em;
     object-fit: none;
     object-position: top;
     image-rendering: pixelated;
-    transform: scale(1.5); /* 2x bigger */
-    transform-origin: top left;
+    transform: scale(1.5);
+    /*transform-origin: top left;*/
+    transform-origin: center;
+    align-self: center;
 }
