@@ -7,8 +7,10 @@
 <body>
     <div class="grid">
         <div th:each="character : ${characters}" class="charDiv">
-            <div th:text="${character.name}" class="charName"></div>
-            <img th:src="@{/images/{filename}(filename=${character.skin})}" id="charSkin">
+            <!--div class="charBox"-->
+                <p th:text="${character.name}" id="charName"></p>
+                <img th:src="@{/images/{filename}(filename=${character.skin})}" id="charSkin">
+            <!--/div-->
         </div>
     </div>
     <div class="charPanel"></div>
