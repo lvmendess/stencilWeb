@@ -9,5 +9,12 @@ CREATE TABLE IF NOT EXISTS Characters(
     skin VARCHAR(255) NOT NULL
 );
 
-INSERT INTO Characters (name, xp, skin) VALUES ('aluno1', 100, 'C:/Users/user/Documents/BSI/projeto/stencilWeb/stencilweb/src/main/resources/static/images/fabiola.png');
+INSERT INTO Characters (name, xp, skin) VALUES ('aluno1', 100, 'fabiola.png');
+INSERT INTO Characters (name, xp, skin) VALUES ('aluno2', 100, 'anaLuzia.png');
+INSERT INTO Characters (name, xp, skin) VALUES ('aluno3', 100, 'bernardo.png');
+INSERT INTO Characters (name, xp, skin) VALUES ('aluno5', 100, 'gabrielHenrique.png');
+INSERT INTO Characters (name, xp, skin) VALUES ('aluno6', 100, 'stephany.png');
+INSERT INTO Characters (name, xp, skin) VALUES ('aluno7', 100, 'padraoFem.png');
+INSERT INTO Characters (name, xp, skin) VALUES ('aluno8', 100, 'padraoMasc.png');
+#UPDATE Characters SET skin = 'anaLuzia.png' WHERE id=2;
 SELECT * FROM Characters;

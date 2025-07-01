@@ -30,12 +30,6 @@ public class Character {
         this.xp = xp;
     }
 
-    /*public Character(String name, String skin, int xp) {
-        this.name = name;
-        this.skin = skin;
-        this.xp = xp;
-    }*/
-
     public int getId() {
         return id;
     }
