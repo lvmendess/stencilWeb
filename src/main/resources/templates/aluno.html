@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>StencilWEB - Aluno</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+    </head>
+    <body>
+        <p th:text="${character.name}"></p>
+        <p th:text="${character.xp}"></p>
+        <img th:src="@{/images/{filename}(filename=${character.skin})}">
+    </body>
+
+</html>

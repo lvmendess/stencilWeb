@@ -36,7 +36,12 @@ public class CharacterController {
         model.addAttribute("characters", service.getAllCharacters());
         return "index";
     }
-    
+
+    @GetMapping("/aluno/{id}")
+    public String getCharacterById(Model model, @org.springframework.web.bind.annotation.PathVariable int id){
+        model.addAttribute("character", service.getCharacterById(id));
+        return "aluno";
+    }
 
     @GetMapping("/info")
     public String info(){
@@ -47,5 +52,5 @@ public class CharacterController {
     public List<com.stencilwebclient.stencilweb.Character> getAllCharacters() {
         return repo.findAll();
     }
-    
+
 }
