@@ -1,0 +1,32 @@
+networks:
+  stencilweb-net:
+    external: true
+services:
+  api_service:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - stencilweb-net
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/Stencil
+    depends_on:
+      - mysqldb
+    volumes:
+      - ./.m2:/root/.m2
+
+  mysqldb:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - stencilweb-net
+    environment:
+      MYSQL_DATABASE: Stencil
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    #networks:
+      #stencilweb

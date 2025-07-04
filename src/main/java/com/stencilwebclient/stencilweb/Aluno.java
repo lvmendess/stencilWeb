@@ -9,37 +9,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Characters")
-public class Character {
+@Table(name="Aluno")
+public class Aluno {
     
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer idAluno;
 
-    @Column(name="name")
-    private String name;
+    private String nomeAluno;
+    private String nick;
     private String skin;
     private int xp;
+    private int ofensiva;
 
-    public Character(){}
+    public Aluno(){}
     
-    public Character(int id, String name, String skin, int xp) {
-        this.id = id;
-        this.name = name;
+    public Aluno(int idAluno, String nomeAluno, String nick, int xp, String skin, int ofensiva) {
+        this.idAluno = idAluno;
+        this.nomeAluno = nomeAluno;
         this.skin = skin;
         this.xp = xp;
     }
 
-    public int getId() {
-        return id;
+    public int getIdAluno() {
+        return idAluno;
     }
 
     /*public void setId(int id) {
         this.id = id;
     }*/
 
-    public String getName() {
-        return name;
+    public String getNomeAluno() {
+        return nomeAluno;
     }
 
     public String getSkin() {
@@ -59,6 +60,14 @@ public class Character {
     public void setXpPoints(int xpPoints) {
         this.xpPoints = xpPoints;
     }*/
+
+    public String getNick() {
+        return nick;
+    }
+
+    public int getOfensiva() {
+        return ofensiva;
+    }
 
     public int getLevel() {
         return 1 + xp / 100;
