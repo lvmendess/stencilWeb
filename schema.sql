@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS Stencil;
-#DROP DATABASE Characters;
+#DROP DATABASE Stencil;
 USE Stencil;
 
 CREATE TABLE IF NOT EXISTS Aluno(
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Turma_Aluno(
 
 CREATE TABLE IF NOT EXISTS Turma_Prof(
 	id_Prof INT,
-    FOREIGN KEY (id_Prof) REFERENCES Professor (idProf)
+    FOREIGN KEY (id_Prof) REFERENCES Professores (idProf)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     id_Turma INT PRIMARY KEY,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Turma_Prof(
 
 CREATE TABLE IF NOT EXISTS Login_Prof(
 	id_Prof INT,
-    FOREIGN KEY (id_Prof) REFERENCES Professor (idProf)
+    FOREIGN KEY (id_Prof) REFERENCES Professores (idProf)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     userProf VARCHAR(30) PRIMARY KEY NOT NULL UNIQUE,
