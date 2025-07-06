@@ -6,10 +6,10 @@
 </head>
 <body>
     <div class="grid">
-        <div th:each="character : ${characters}" class="charDiv">
+        <div th:each="alunos : ${aluno}" class="charDiv">
             <!--div class="charBox"-->
-                <p th:text="${character.name}" id="charName"></p>
-                <img th:src="@{/images/{filename}(filename=${character.skin})}" id="charSkin">
+                <p th:text="${aluno.nomeAluno}" id="charName"></p>
+                <img th:src="@{/images/{filename}(filename=${aluno.skin})}" id="charSkin">
             <!--/div-->
         </div>
     </div>

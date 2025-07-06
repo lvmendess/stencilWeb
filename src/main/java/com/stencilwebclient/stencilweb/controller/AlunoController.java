@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import com.stencilwebclient.stencilweb.Aluno;
 import com.stencilwebclient.stencilweb.AlunoRepository;
 import com.stencilwebclient.stencilweb.service.AlunoService;
 
@@ -31,6 +33,13 @@ public class AlunoController {
 
     @GetMapping("/aluno/{id}")
     public String getAlunoById(Model model, @PathVariable int id){
+        Aluno aluno = service.getAlunoById(id);
+        if(aluno==null){
+            System.out.println("aluno "+id+" nao encontrado");
+        }else{
+            System.out.println("aluno "+aluno.getNomeAluno()+" encontrado");
+        }
+        //System.out.println("aluno: "+ service.getAlunoById(id));
         model.addAttribute("aluno", service.getAlunoById(id));
         return "aluno";
     }
@@ -41,7 +50,7 @@ public class AlunoController {
     }
 
     @GetMapping("/api/characters")
-    public List<com.stencilwebclient.stencilweb.Aluno> getAllCharacters() {
+    public List<com.stencilwebclient.stencilweb.Aluno> getAllAlunos() {
         return repo.findAll();
     }
 

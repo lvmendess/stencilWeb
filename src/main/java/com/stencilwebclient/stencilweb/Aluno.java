@@ -1,5 +1,6 @@
 package com.stencilwebclient.stencilweb;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,22 +14,42 @@ import jakarta.persistence.Table;
 public class Aluno {
     
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="idAluno")
     private Integer idAluno;
 
+    @Column(name="nomeAluno")
     private String nomeAluno;
+
+    @Nullable
+    @Column(name="nick")
     private String nick;
+
+    @Column(name="skin")
     private String skin;
+
+    @Column(name="xp")
     private int xp;
+
+    @Nullable
+    @Column(name="ofensiva")
     private int ofensiva;
 
     public Aluno(){}
     
-    public Aluno(int idAluno, String nomeAluno, String nick, int xp, String skin, int ofensiva) {
+    /*public Aluno(int idAluno, String nomeAluno, int xp, String skin) {
         this.idAluno = idAluno;
         this.nomeAluno = nomeAluno;
         this.skin = skin;
         this.xp = xp;
+    }*/
+
+    public Aluno(int idAluno, String nomeAluno, String nick, int xp, int ofensiva, String skin) {
+        this.idAluno = idAluno;
+        this.nomeAluno = nomeAluno;
+        this.skin = skin;
+        this.xp = xp;
+        this.ofensiva = ofensiva;
+        this.nick = nick;
     }
 
     public int getIdAluno() {
@@ -61,10 +82,12 @@ public class Aluno {
         this.xpPoints = xpPoints;
     }*/
 
+    @Nullable
     public String getNick() {
         return nick;
     }
 
+    @Nullable
     public int getOfensiva() {
         return ofensiva;
     }

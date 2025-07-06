@@ -5,9 +5,11 @@
         <link rel="stylesheet" th:href="@{/css/styles.css}">
     </head>
     <body>
-        <p th:text="${character.name}"></p>
-        <p th:text="${character.xp}"></p>
-        <img th:src="@{/images/{filename}(filename=${character.skin})}">
+        <p th:text="${aluno.nomeAluno}"></p>
+        <p th:text="${aluno.nick}"></p>
+        <p th:text="${aluno.xp}"></p>
+        <p th:text="${aluno.ofensiva}"></p>
+        <img th:src="@{/images/{filename}(filename=${aluno.skin})}">
     </body>
 
 </html>
