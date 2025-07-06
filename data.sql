@@ -7,7 +7,7 @@ INSERT INTO Aluno (nomeAluno, xp, skin) VALUES ('aluno1', 100, 'fabiola.png'),
 ('aluno7', 100, 'padraoFem.png'),
 ('aluno8', 100, 'padraoMasc.png');
 
-INSERT INTO Turma (nomeTurma) VALUES (turmaA), (turmaB);
+INSERT INTO Turma (nomeTurma) VALUES ('turmaA'), ('turmaB');
 
 #UPDATE Characters SET skin = 'anaLuzia.png' WHERE id=2;
 #SELECT * FROM Characters;
