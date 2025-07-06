@@ -2,14 +2,20 @@
 <html>
     <head>
         <title>StencilWEB - Aluno</title>
-        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" th:href="@{/css/aluno.css}">
     </head>
     <body>
-        <p th:text="${aluno.nomeAluno}"></p>
-        <p th:text="${aluno.nick}"></p>
-        <p th:text="${aluno.xp}"></p>
-        <p th:text="${aluno.ofensiva}"></p>
-        <img th:src="@{/images/{filename}(filename=${aluno.skin})}">
+        <div class="infoAluno">
+            <p th:text="${aluno.nomeAluno}"></p>
+            <p th:text="${aluno.nick}"></p>
+            <p th:text="${aluno.xp}"></p>
+            <p th:text="${aluno.ofensiva}"></p>
+        </div>
+    
+        <div class="divSkin">
+            <img th:src="@{/images/{filename}(filename=${aluno.skin})}">
+        </div>
+        
     </body>
 
 </html>
