@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.stencilwebclient.stencilweb.Aluno;
-import com.stencilwebclient.stencilweb.AlunoRepository;
+import com.stencilwebclient.stencilweb.models.Aluno;
+import com.stencilwebclient.stencilweb.repository.AlunoRepository;
 import com.stencilwebclient.stencilweb.service.AlunoService;
 
 @Controller
@@ -39,7 +39,6 @@ public class AlunoController {
         }else{
             System.out.println("aluno "+aluno.getNomeAluno()+" encontrado");
         }
-        //System.out.println("aluno: "+ service.getAlunoById(id));
         model.addAttribute("aluno", service.getAlunoById(id));
         return "aluno";
     }
@@ -50,7 +49,7 @@ public class AlunoController {
     }
 
     @GetMapping("/api/characters")
-    public List<com.stencilwebclient.stencilweb.Aluno> getAllAlunos() {
+    public List<com.stencilwebclient.stencilweb.models.Aluno> getAllAlunos() {
         return repo.findAll();
     }
 

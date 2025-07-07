@@ -4,6 +4,10 @@ USE Stencil;
 
 CREATE TABLE IF NOT EXISTS Aluno(
 	idAluno INT PRIMARY KEY AUTO_INCREMENT,
+    idusuario INT,
+    FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
     nomeAluno VARCHAR(25) NOT NULL UNIQUE,
     nick VARCHAR(25) NOT NULL,
     xp INT NOT NULL,
@@ -13,6 +17,10 @@ CREATE TABLE IF NOT EXISTS Aluno(
 
 CREATE TABLE IF NOT EXISTS Professores(
 	idProf INT PRIMARY KEY AUTO_INCREMENT,
+    idusuario INT,
+    FOREIGN KEY (idUsuario) REFERENCES Usuario (idUsuario)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
     nomeProf VARCHAR(25) NOT NULL
 );
 
@@ -43,20 +51,10 @@ CREATE TABLE IF NOT EXISTS Turma_Prof(
     ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS Login_Prof(
-	id_Prof INT,
-    FOREIGN KEY (id_Prof) REFERENCES Professores (idProf)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-    userProf VARCHAR(30) PRIMARY KEY NOT NULL UNIQUE,
-    senhaProf BLOB
-);
-
-CREATE TABLE IF NOT EXISTS Login_Aluno(
-	id_Aluno INT,
-    FOREIGN KEY (id_Aluno) REFERENCES Aluno (idAluno)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-    userAluno VARCHAR(30) PRIMARY KEY NOT NULL UNIQUE,
-    senhaAluno BLOB
+CREATE TABLE IF NOT EXISTS Usuario(
+	idUsuario INT PRIMARY KEY,
+    nomeUsuario VARCHAR(30) UNIQUE NOT NULL,
+    senhaUsuario VARCHAR(100) NOT NULL,
+    tipo CHAR(1) NOT NULL,
+    CHECK (tipo IN ('P', 'A'))
 );

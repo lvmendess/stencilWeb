@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.stencilwebclient.stencilweb.AlunoRepository;
+import com.stencilwebclient.stencilweb.repository.AlunoRepository;
 
 @Service
 public class AlunoService {
@@ -14,11 +14,11 @@ public class AlunoService {
         this.repo = repo;
     }
 
-    public List<com.stencilwebclient.stencilweb.Aluno> getAllAlunos(){
+    public List<com.stencilwebclient.stencilweb.models.Aluno> getAllAlunos(){
         return repo.findAll();
     }
 
-    public com.stencilwebclient.stencilweb.Aluno getAlunoById(Integer id){
+    public com.stencilwebclient.stencilweb.models.Aluno getAlunoById(Integer id){
         return repo.findById(id).orElse(null);
     }
 }

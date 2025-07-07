@@ -1,12 +1,17 @@
-package com.stencilwebclient.stencilweb;
+package com.stencilwebclient.stencilweb.models;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.annotation.Generated;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,6 +21,9 @@ public class Aluno {
     @Id
     @Column(name="idAluno")
     private Integer idAluno;
+
+    @Column(name="idUsuario")
+    private Integer idUsuario;
 
     @Column(name="nomeAluno")
     private String nomeAluno;
@@ -33,6 +41,11 @@ public class Aluno {
     @Nullable
     @Column(name="ofensiva")
     private int ofensiva;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="idUsuario", referencedColumnName = "idUsuario",
+                foreignKey = @ForeignKey(name="FK_idUsuario"))
+    private User user;
 
     public Aluno(){}
     
