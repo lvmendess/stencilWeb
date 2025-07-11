@@ -39,8 +39,8 @@
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Incrementar XP</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="number" step="1" th:field="${alunoDTO.xp}">
-                    <p th:if="${#fields.hasErrors('xp')}" th:errorclass="text-danger" th:errors="${alunoDTO.xp}"></p>
+                    <input class="form-control" type="number" step="1" th:field="${alunoDTO.incrementoXp}">
+                    <p th:if="${#fields.hasErrors('xp')}" th:errorclass="text-danger" th:errors="${alunoDTO.incrementoXp}"></p>
                 </div>
             </div>
 
@@ -61,17 +61,17 @@
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Incrementar Ofensiva</label>
                 <div class="col-sm-8">
-                    <input class="form-control" type="number" step="1" th:field="${alunoDTO.ofensiva}">
-                    <p th:if="${#fields.hasErrors('ofensiva')}" th:errorclass="text-danger" th:errors="${alunoDTO.ofensiva}"></p>
+                    <input class="form-control" type="number" step="1" th:field="${alunoDTO.incrementoOfensiva}">
+                    <p th:if="${#fields.hasErrors('ofensiva')}" th:errorclass="text-danger" th:errors="${alunoDTO.incrementoOfensiva"></p>
                 </div>
             </div>
 
             <div class="row">
                 <div class="offset-sm-4 col-sm-4 d-grid">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
                 <div class="col-sm-4 d-grid">
-                    <a class="btn btn-outline-primary" href="/professor/menu" role="button">Cancel</a>
+                    <a class="btn btn-outline-primary" href="/professor/menu" role="button">Cancelar</a>
                 </div>
             </div>
 

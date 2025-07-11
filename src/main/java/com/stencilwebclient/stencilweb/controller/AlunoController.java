@@ -36,6 +36,11 @@ public class AlunoController {
         this.repo = repo;
     }
 
+    @GetMapping("")
+    public String landingPage() {
+        return "redirect:/professor/menu";
+    }
+
     @GetMapping("/professor/menu")
     public String listAlunos(Model model) {
         model.addAttribute("alunos", service.getAllAlunos());
@@ -134,17 +139,11 @@ public class AlunoController {
                 return "editAluno";
             }
             if (!alunoDTO.getSkin().isEmpty()) {
-                // deletar imagem antiga
-                String imagesDir = "src/main/resources/static/images/";
-                Path oldPath = Paths.get(imagesDir + aluno.getSkin());
-                try {
-                    Files.delete(oldPath);
-                } catch (Exception e) {
-                    System.out.println("Error: "+e.getMessage());
-                }
+                deleteImage(aluno.getSkin());
                 // armazenar a imagem no servidor
                 MultipartFile image = alunoDTO.getSkin();
                 Date date = new Date();
+                String imagesDir = "src/main/resources/static/images/";
                 String storageFileName = date.getTime() + "_" + image.getOriginalFilename();
                 try (InputStream inputStream = image.getInputStream()) {
                     Files.copy(inputStream, Paths.get(imagesDir + storageFileName), StandardCopyOption.REPLACE_EXISTING );
@@ -153,12 +152,30 @@ public class AlunoController {
             }
             aluno.setNomeAluno(alunoDTO.getNomeAluno());
             aluno.setNick(alunoDTO.getNick());
-            aluno.setXp(aluno.getXp() + alunoDTO.getXp());
-            aluno.setOfensiva(alunoDTO.getOfensiva() + alunoDTO.getOfensiva());
+            aluno.setXp(aluno.getXp() + alunoDTO.getIncrementoXp());
+            aluno.setOfensiva(aluno.getOfensiva() + alunoDTO.getIncrementoOfensiva());
             repo.save(aluno);
         } catch (Exception e) {
             System.out.println("Error: "+e.getMessage());
         }
         return "redirect:/professor/menu";
+    }
+
+    @GetMapping("/professor/remover")
+    public String deleteAluno(@RequestParam int id) {
+        Aluno aluno = repo.findById(id).get();
+        deleteImage(aluno.getSkin());
+        repo.delete(aluno);
+        return "redirect:/professor/menu";
+    }
+
+    private void deleteImage(String image) {
+        String imagesDir = "src/main/resources/static/images/";
+        Path path = Paths.get(imagesDir + image);
+        try {
+            Files.delete(path);
+        } catch (Exception e) {
+            System.out.println("Error: "+e.getMessage());
+        }
     }
 }

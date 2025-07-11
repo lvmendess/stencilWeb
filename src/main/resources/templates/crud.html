@@ -36,7 +36,8 @@
                     </td>
                     <td style="white-space:nowrap">
                         <a class="btn btn-primary btn-sm" th:href="@{/professor/editar(id=${aluno.idAluno})}">Editar</a>
-                        <a class="btn btn-danger btn-sm" th:href="@{/professor/remover(id=${aluno.idAluno})}">Remover</a>
+                        <a class="btn btn-danger btn-sm" onclick="return confirm('Você tem certeza? Essa ação não pode ser desfeita.')"
+                           th:href="@{/professor/remover(id=${aluno.idAluno})}">Remover</a>
                     </td>
                 </tr>
             </tbody>

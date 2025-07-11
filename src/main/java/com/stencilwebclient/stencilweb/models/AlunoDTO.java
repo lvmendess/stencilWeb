@@ -2,6 +2,7 @@ package com.stencilwebclient.stencilweb.models;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.web.multipart.MultipartFile;
 
 public class AlunoDTO {
@@ -17,8 +18,12 @@ public class AlunoDTO {
     @Min(0)
     private int xp;
 
+    private int incrementoXp;
+
     @Min(0)
     private int ofensiva;
+
+    private int incrementoOfensiva;
 
     public String getNomeAluno() {
         return nomeAluno;
@@ -58,5 +63,21 @@ public class AlunoDTO {
 
     public void setOfensiva(int ofensiva) {
         this.ofensiva = ofensiva;
+    }
+
+    public int getIncrementoOfensiva() {
+        return incrementoOfensiva;
+    }
+
+    public void setIncrementoOfensiva(int incrementoOfensiva) {
+        this.incrementoOfensiva = incrementoOfensiva;
+    }
+
+    public int getIncrementoXp() {
+        return incrementoXp;
+    }
+
+    public void setIncrementoXp(int incrementoXp) {
+        this.incrementoXp = incrementoXp;
     }
 }
