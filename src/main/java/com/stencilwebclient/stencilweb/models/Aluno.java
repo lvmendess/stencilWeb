@@ -22,8 +22,8 @@ public class Aluno {
     @Column(name="idAluno")
     private Integer idAluno;
 
-    @Column(name="idUsuario")
-    private Integer idUsuario;
+    /*@Column(name="usuario_id")
+    private Integer usuario_id;*/
 
     @Column(name="nomeAluno")
     private String nomeAluno;
@@ -43,9 +43,9 @@ public class Aluno {
     private int ofensiva;
 
     @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name="idUsuario", referencedColumnName = "idUsuario",
-                foreignKey = @ForeignKey(name="FK_idUsuario"))
-    private User user;
+    @JoinColumn(name="usuario_id_s", referencedColumnName = "idUsuario",
+                foreignKey = @ForeignKey(name="FK_idUsuario_S"))
+    private Usuario user;
 
     public Aluno(){}
     
@@ -109,4 +109,13 @@ public class Aluno {
         return 1 + xp / 100;
     }
 
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+
+    
 }

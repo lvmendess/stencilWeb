@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="Usuario")
-public class User {
+public class Usuario {
     
     @Id
     @Column(name="idUsuario", nullable = false)

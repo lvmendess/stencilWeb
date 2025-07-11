@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class StencilUser implements UserDetails{
 
-    private final User user;
+    private final Usuario user;
 
-    public StencilUser(User user){
+    public StencilUser(Usuario user){
         this.user = user;
     }
 

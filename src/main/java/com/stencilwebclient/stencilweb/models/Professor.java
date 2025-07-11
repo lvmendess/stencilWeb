@@ -1,8 +1,12 @@
 package com.stencilwebclient.stencilweb.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,6 +19,11 @@ public class Professor {
 
     @Column(name="nomeProf")
     private String nomeProf;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name="usuario_id_t", referencedColumnName = "idUsuario",
+                foreignKey = @ForeignKey(name="FK_idUsuario_T"))
+    private Usuario user;
 
     public Professor(){}
 
@@ -29,6 +38,14 @@ public class Professor {
 
     public String getNomeProf() {
         return nomeProf;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
     }
 
 }

@@ -3,7 +3,7 @@ networks:
 services:
   api_service:
     build: .
-    restart: always
+    restart: no
     ports:
       - 8081:8080
     networks:
@@ -17,13 +17,13 @@ services:
 
   mysqldb:
     image: "mysql:8.0"
-    restart: always
+    environment:
+      MYSQL_DATABASE: Stencil
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    restart: no
     ports:
       - 3307:3306
     networks:
       - stencilweb-net
-    environment:
-      MYSQL_DATABASE: Stencil
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     #networks:
       #stencilweb

@@ -6,13 +6,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.stencilwebclient.stencilweb.models.StencilUser;
-import com.stencilwebclient.stencilweb.repository.UserRepository;
+import com.stencilwebclient.stencilweb.repository.UsuarioRepository;
 
 public class StencilUserDetailsService implements UserDetailsService{
 
-    private final UserRepository repo;
+    private final UsuarioRepository repo;
 
-    public StencilUserDetailsService(UserRepository repo){
+    public StencilUserDetailsService(UsuarioRepository repo){
         this.repo = repo;
     }
 
