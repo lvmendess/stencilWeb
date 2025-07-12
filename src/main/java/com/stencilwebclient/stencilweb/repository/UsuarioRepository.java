@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.stencilwebclient.stencilweb.models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
-    Optional<Usuario> findByUsername(String nomeUsuario);
+    Optional<Usuario> findByNomeUsuario(String nomeUsuario);
 }

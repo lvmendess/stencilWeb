@@ -18,7 +18,7 @@ public class StencilUserDetailsService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            return repo.findByUsername(username)
+            return repo.findByNomeUsuario(username)
             .map(StencilUser::new)
             .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
