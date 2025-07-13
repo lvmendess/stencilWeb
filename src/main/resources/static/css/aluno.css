@@ -12,6 +12,10 @@ body{
     backdrop-filter: blur(5px);
 }
 
+#xp-bar{
+    background-color: #00af0f;
+}
+
 .charPanel{}
 
 .charDiv{}

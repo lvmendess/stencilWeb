@@ -19,7 +19,7 @@
                 <div class="card-footer">
                     <p th:text="'Nível ' + ${aluno.getLevel()}"></p>
                     <div class="progress" role="progressbar" aria-label="Basic example" th:aria-valuenow="${aluno.xp % 1000}" aria-valuemin="0" aria-valuemax="1000">
-                        <div class="progress-bar" th:style="'width: ' + ${(aluno.xp % 1000) / 10} + '%'"></div>
+                        <div class="progress-bar bg-gradient" id="xp-bar" th:style="'width: ' + ${(aluno.xp % 1000) / 10} + '%'"></div>
                     </div>
                     <p th:text="'XP: ' + ${aluno.xp}"></p>
                     <div class="d-inline-flex">
