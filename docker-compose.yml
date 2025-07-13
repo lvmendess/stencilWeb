@@ -1,11 +1,15 @@
 networks:
   stencilweb-net:
+
+volumes:
+  mysql-data:
+
 services:
   api_service:
     build: .
     restart: no
     ports:
-      - 8081:8080
+      - 8080:8080
     networks:
       - stencilweb-net
     environment:
@@ -31,5 +35,7 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    volumes:
+      - mysql-data:/var/lib/mysql
     #networks:
       #stencilweb
