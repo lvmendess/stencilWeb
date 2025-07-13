@@ -26,10 +26,6 @@ public class AlunoController {
 
     private final AlunoRepository repo;
     private final AlunoService service;
-    
-    /*public CharacterController(CharacterRepository repo){
-        this.repo = repo;
-    }*/
 
     public AlunoController(AlunoService service, AlunoRepository repo){
         this.service = service;

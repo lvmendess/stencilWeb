@@ -1,4 +1,5 @@
 body{
+    /*noinspection CssUnknownTarget*/
     background-image: url("/images/bg1.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -14,6 +15,11 @@ body{
     margin: 5vh 0 0 5vh;
     max-width: 55%;
     gap: 2em;
+}
+
+#panel{
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 /*.charBox{

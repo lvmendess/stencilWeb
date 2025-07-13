@@ -75,7 +75,7 @@ public class Aluno {
     }
 
     public int getLevel() {
-        return 1 + xp / 100;
+        return 1 + xp / 1000;
     }
 
     public void setNomeAluno(String nomeAluno) {
