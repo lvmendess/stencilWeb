@@ -7,17 +7,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class StencilUser implements UserDetails{
+public class SecurityUser implements UserDetails{
 
     private final Usuario user;
 
-    public StencilUser(Usuario user){
+    public SecurityUser(Usuario user){
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        String role = user.getRole();
+        String role = "ROLE_";
+        role += user.getRole();
         String prefixedRole = role.startsWith("ROLE_") ? role : "ROLE_" + role;
         return List.of(new SimpleGrantedAuthority(prefixedRole));
     }

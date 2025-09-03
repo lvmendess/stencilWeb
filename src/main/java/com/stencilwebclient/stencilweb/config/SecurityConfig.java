@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.stencilwebclient.stencilweb.service.StencilUserDetailsService;
+import com.stencilwebclient.stencilweb.service.UsuarioDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +38,7 @@ public class SecurityConfig {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider(
-        StencilUserDetailsService userDetailsService, PasswordEncoder passwordEncoder){
+        UsuarioDetailsService userDetailsService, PasswordEncoder passwordEncoder){
             DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
             provider.setUserDetailsService(userDetailsService);
             provider.setPasswordEncoder(passwordEncoder);

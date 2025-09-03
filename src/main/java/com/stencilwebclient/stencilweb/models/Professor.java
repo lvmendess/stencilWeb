@@ -4,6 +4,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -15,6 +17,7 @@ public class Professor {
 
     @Id
     @Column(name="idProf", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idProf;
 
     @Column(name="nomeProf")

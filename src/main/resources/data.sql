@@ -1,6 +1,6 @@
 USE Stencil;
 
-INSERT INTO Usuario (nomeUsuario, senhaUsuario, tipo) VALUES ('admin', '{noop}admin', 'A');
+INSERT INTO Usuario (nomeUsuario, senhaUsuario, roleUsuario) VALUES ('admin', '$2a$10$zoVFgbD/KpH60BDOF19qF.hdUJsiKcfEWwme3rnuQxfiEHbC9ILFS', 'A');
 
 INSERT INTO Aluno (nomeAluno, nick, xp, skin, ofensiva) VALUES ('aluno1', '', 100, 'fabiola.png', 0),
 ('aluno2', '', 100, 'anaLuzia.png', 0),

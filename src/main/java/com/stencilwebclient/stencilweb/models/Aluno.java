@@ -20,6 +20,7 @@ public class Aluno {
     
     @Id
     @Column(name="idAluno")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAluno;
 
     /*@Column(name="usuario_id")

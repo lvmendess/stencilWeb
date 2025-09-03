@@ -1,13 +1,13 @@
+DROP DATABASE IF EXISTS Stencil;
 CREATE DATABASE IF NOT EXISTS Stencil;
-#DROP DATABASE Stencil;
 USE Stencil;
 
 CREATE TABLE IF NOT EXISTS Usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nomeUsuario VARCHAR(30) UNIQUE NOT NULL,
     senhaUsuario VARCHAR(100) NOT NULL,
-    tipo CHAR(1) NOT NULL,
-    CHECK (tipo IN ('A', 'T', 'S'))
+    roleUsuario CHAR(1) NOT NULL,
+    CHECK (roleUsuario IN ('A', 'T', 'S'))
 );
 
 CREATE TABLE IF NOT EXISTS Aluno(
