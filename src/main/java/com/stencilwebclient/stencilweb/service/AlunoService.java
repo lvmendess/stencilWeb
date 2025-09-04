@@ -2,6 +2,7 @@ package com.stencilwebclient.stencilweb.service;
 
 import java.util.List;
 
+import com.stencilwebclient.stencilweb.models.Aluno;
 import org.springframework.stereotype.Service;
 
 import com.stencilwebclient.stencilweb.repository.AlunoRepository;

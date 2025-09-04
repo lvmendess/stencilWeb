@@ -1,7 +1,6 @@
 package com.stencilwebclient.stencilweb.repository;
 
-import java.util.List;
-
+import com.stencilwebclient.stencilweb.models.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.stencilwebclient.stencilweb.models.Aluno;

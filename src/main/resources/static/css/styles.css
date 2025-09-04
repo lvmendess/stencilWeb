@@ -1,5 +1,9 @@
 body{
-    background-image: url("/images/background2.png");
+    /*noinspection CssUnknownTarget*/
+    background-image: url("/images/bg1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
     background-size: cover;
 }
 
@@ -13,6 +17,11 @@ body{
     gap: 2em;
 }
 
+#panel{
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+}
+
 /*.charBox{
     align-items: center;
     display: flex;
@@ -22,32 +31,11 @@ body{
 
 .charPanel{}
 
-.charDiv{
-    display: flex;
-    /*flex: 1 0 auto;*/
-    flex-direction: column;
-    justify-content: center;
-    width:5em;
-    /*align-items: center;*/
-    gap: 1em;
-}
+.charDiv{}
 
-#charName{
-    color: white;
-    font-weight: bold;
-    margin-bottom: 1em;
-    /*align-items: center;*/
-    /*text-align: center;*/
-}
-
-#charSkin{
-    width: 3.9em;
-    height: 3.9em;
+img.charSkin{
+    width: 64px;
+    height: 64px;
     object-fit: none;
-    object-position: top;
-    image-rendering: pixelated;
-    transform: scale(1.5);
-    /*transform-origin: top left;*/
-    transform-origin: center;
-    /*align-self: center;*/
+    object-position: -32px 0px;
 }

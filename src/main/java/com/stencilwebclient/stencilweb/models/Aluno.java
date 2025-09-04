@@ -1,7 +1,6 @@
 package com.stencilwebclient.stencilweb.models;
 
 import io.micrometer.common.lang.Nullable;
-import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -19,8 +17,8 @@ import jakarta.persistence.Table;
 public class Aluno {
     
     @Id
-    @Column(name="idAluno")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idAluno")
     private Integer idAluno;
 
     /*@Column(name="usuario_id")
@@ -49,13 +47,14 @@ public class Aluno {
     private Usuario user;
 
     public Aluno(){}
-    
-    /*public Aluno(int idAluno, String nomeAluno, int xp, String skin) {
-        this.idAluno = idAluno;
+
+    public Aluno(String nomeAluno, String nick, int xp, int ofensiva, String skin) {
         this.nomeAluno = nomeAluno;
         this.skin = skin;
         this.xp = xp;
-    }*/
+        this.ofensiva = ofensiva;
+        this.nick = nick;
+    }
 
     public Aluno(int idAluno, String nomeAluno, String nick, int xp, int ofensiva, String skin) {
         this.idAluno = idAluno;
@@ -70,10 +69,6 @@ public class Aluno {
         return idAluno;
     }
 
-    /*public void setId(int id) {
-        this.id = id;
-    }*/
-
     public String getNomeAluno() {
         return nomeAluno;
     }
@@ -86,16 +81,6 @@ public class Aluno {
         return xp;
     }
 
-    /*public void setname(String name) {
-        this.name = name;
-    }
-    public void setSkinPath(String skinPath) {
-        this.skinPath = skinPath;
-    }
-    public void setXpPoints(int xpPoints) {
-        this.xpPoints = xpPoints;
-    }*/
-
     @Nullable
     public String getNick() {
         return nick;
@@ -107,7 +92,7 @@ public class Aluno {
     }
 
     public int getLevel() {
-        return 1 + xp / 100;
+        return 1 + xp / 1000;
     }
 
     public Usuario getUser() {
@@ -119,4 +104,27 @@ public class Aluno {
     }
 
     
+    public void setNomeAluno(String nomeAluno) {
+        this.nomeAluno = nomeAluno;
+    }
+
+    public void setNick(@Nullable String nick) {
+        this.nick = nick;
+    }
+
+    public void setSkin(String skin) {
+        this.skin = skin;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public void setOfensiva(int ofensiva) {
+        this.ofensiva = ofensiva;
+    }
+
+    public void setIdAluno(Integer idAluno) {
+        this.idAluno = idAluno;
+    }
 }
