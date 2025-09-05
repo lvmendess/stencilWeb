@@ -7,6 +7,8 @@ COPY src/ src/
 RUN mvn clean package -DskipTests
 
 #run
+RUN mkdir -p /uploads/images
+USER appuser
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/stencilweb-0.0.1-SNAPSHOT.jar app.jar
