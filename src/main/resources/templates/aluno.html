@@ -14,7 +14,7 @@
                     <div class="nickname" th:text="${aluno.nick}"></div>
                 </div>
                 <div class="card-body">
-                    <img th:src="@{/images/{filename}(filename=${aluno.skin})}">
+                    <img th:src="@{/{filename}(filename=${aluno.skin})}">
                 </div>
                 <div class="card-footer">
                     <p th:text="'Nível ' + ${aluno.getLevel()}"></p>

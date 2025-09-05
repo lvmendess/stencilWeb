@@ -1,5 +1,6 @@
 package com.stencilwebclient.stencilweb.controller;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +11,9 @@ import java.util.List;
 
 import com.stencilwebclient.stencilweb.models.AlunoDTO;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,8 +34,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class AlunoController {
 
+    private static final Logger log = LoggerFactory.getLogger(AlunoController.class);
+
     private final AlunoRepository repo;
     private final AlunoService service;
+    @Value("${app.upload.dir}")
+    private String uploadDir;
 
     public AlunoController(AlunoService service, AlunoRepository repo){
         this.service = service;
@@ -80,35 +88,35 @@ public class AlunoController {
 
     @PostMapping("professor/criar")
     public String createAluno(@Valid @ModelAttribute AlunoDTO alunoDTO, BindingResult result) {
-        if (alunoDTO.getSkin().isEmpty()) {
+        if (alunoDTO.getSkin() == null || alunoDTO.getSkin().isEmpty()) {
             result.addError(new FieldError("alunoDTO", "skin", "Uma imagem para o personagem é necessária"));
         }
         if (result.hasErrors()) {
             return "createAluno";
         }
-        // armazenar a imagem no servidor
+
         MultipartFile image = alunoDTO.getSkin();
-        Date date = new Date();
-        String storageFileName = date.getTime() + "_" + image.getOriginalFilename();
+        String storageFileName = null;
         try {
-            String imagesDir = "src/main/resources/static/images/";
-            Path path = Paths.get(imagesDir);
-            if (!Files.exists(path)) {
-                Files.createDirectory(path);
-            }
-            try (InputStream inputStream = image.getInputStream()) {
-                Files.copy(inputStream, Paths.get(imagesDir + storageFileName), StandardCopyOption.REPLACE_EXISTING );
-            }
+            String original = Paths.get(image.getOriginalFilename()).getFileName().toString();
+            storageFileName = System.currentTimeMillis() + "_" + original;
+
+            Path uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
+            Files.createDirectories(uploadPath);
+            Path target = uploadPath.resolve(storageFileName);
+            image.transferTo(target.toFile());
+
         } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
+            log.error("Failed saving uploaded file during create", e);
+            result.reject("file", "Could not save file");
             return "createAluno";
         }
-        // criar objeto
+
         Aluno aluno = new Aluno(alunoDTO.getNomeAluno(),
-                                alunoDTO.getNick(),
-                                alunoDTO.getXp(),
-                                alunoDTO.getOfensiva(),
-                                storageFileName);
+                alunoDTO.getNick(),
+                alunoDTO.getXp(),
+                alunoDTO.getOfensiva(),
+                storageFileName);
         repo.save(aluno);
 
         return "redirect:/professor/menu";
@@ -117,7 +125,11 @@ public class AlunoController {
     @GetMapping("/professor/editar")
     public String showEditPage(Model model, @RequestParam int id) {
         try{
-            Aluno aluno = repo.findById(id).get();
+            Aluno aluno = repo.findById(id).orElse(null);
+            if (aluno == null) {
+                log.warn("Aluno {} not found", id);
+                return "redirect:/professor/menu";
+            }
             model.addAttribute("aluno", aluno);
             AlunoDTO alunoDTO = new AlunoDTO();
             alunoDTO.setNomeAluno(aluno.getNomeAluno());
@@ -126,7 +138,7 @@ public class AlunoController {
             alunoDTO.setOfensiva(aluno.getOfensiva());
             model.addAttribute("alunoDTO", alunoDTO);
         } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
+            log.error("Error preparing edit page", e);
         }
         return "editAluno";
     }
@@ -134,49 +146,67 @@ public class AlunoController {
     @PostMapping("/professor/editar")
     public String updateAluno(Model model, @RequestParam int id, @Valid @ModelAttribute AlunoDTO alunoDTO, BindingResult result) {
         try {
-            Aluno aluno = repo.findById(id).get();
+            Aluno aluno = repo.findById(id).orElse(null);
+            if (aluno == null) {
+                result.reject("notfound", "Aluno não encontrado");
+                return "editAluno";
+            }
             model.addAttribute("aluno", aluno);
             if (result.hasErrors()) {
                 return "editAluno";
             }
-            if (!alunoDTO.getSkin().isEmpty()) {
-                deleteImage(aluno.getSkin());
-                // armazenar a imagem no servidor
-                MultipartFile image = alunoDTO.getSkin();
-                Date date = new Date();
-                String imagesDir = "src/main/resources/static/images/";
-                String storageFileName = date.getTime() + "_" + image.getOriginalFilename();
-                try (InputStream inputStream = image.getInputStream()) {
-                    Files.copy(inputStream, Paths.get(imagesDir + storageFileName), StandardCopyOption.REPLACE_EXISTING );
+
+            MultipartFile image = alunoDTO.getSkin();
+            if (image != null && !image.isEmpty()) {
+                String original = Paths.get(image.getOriginalFilename()).getFileName().toString();
+                String storageFileName = System.currentTimeMillis() + "_" + original;
+                Path uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
+                try {
+                    Files.createDirectories(uploadPath);
+                    Path target = uploadPath.resolve(storageFileName);
+                    image.transferTo(target.toFile());
+                    // delete old image from same uploadPath
+                    if (aluno.getSkin() != null) {
+                        Files.deleteIfExists(uploadPath.resolve(aluno.getSkin()));
+                    }
+                    aluno.setSkin(storageFileName);
+                } catch (IOException e) {
+                    log.error("Failed saving uploaded file during update", e);
+                    result.reject("file", "Could not save file");
+                    return "editAluno";
                 }
-                aluno.setSkin(storageFileName);
             }
+
             aluno.setNomeAluno(alunoDTO.getNomeAluno());
             aluno.setNick(alunoDTO.getNick());
             aluno.setXp(aluno.getXp() + alunoDTO.getIncrementoXp());
             aluno.setOfensiva(aluno.getOfensiva() + alunoDTO.getIncrementoOfensiva());
             repo.save(aluno);
         } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
+            log.error("Error updating aluno", e);
+            result.reject("server", "Erro interno");
+            return "editAluno";
         }
         return "redirect:/professor/menu";
     }
 
     @GetMapping("/professor/remover")
     public String deleteAluno(@RequestParam int id) {
-        Aluno aluno = repo.findById(id).get();
-        deleteImage(aluno.getSkin());
-        repo.delete(aluno);
+        Aluno aluno = repo.findById(id).orElse(null);
+        if (aluno != null) {
+            deleteImage(aluno.getSkin());
+            repo.delete(aluno);
+        }
         return "redirect:/professor/menu";
     }
 
     private void deleteImage(String image) {
-        String imagesDir = "src/main/resources/static/images/";
-        Path path = Paths.get(imagesDir + image);
+        if (image == null || image.isBlank()) return;
+        Path path = Paths.get(uploadDir).resolve(image).toAbsolutePath().normalize();
         try {
-            Files.delete(path);
+            Files.deleteIfExists(path);
         } catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
+            log.warn("Could not delete image {}: {}", path, e.getMessage());
         }
     }
 }

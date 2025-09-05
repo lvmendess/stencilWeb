@@ -32,7 +32,7 @@
                     <td th:text="${aluno.xp}"></td>
                     <td th:text="${aluno.ofensiva} + ' aula(s)'"></td>
                     <td>
-                        <img class=charSkin th:src="@{'/images/' + ${aluno.skin}}" th:alt="@{${aluno.nick} + ' head'}">
+                        <img class=charSkin th:src="@{'/' + ${aluno.skin}}" th:alt="@{${aluno.nick} + ' head'}">
                     </td>
                     <td style="white-space:nowrap">
                         <a class="btn btn-primary btn-sm" th:href="@{/professor/editar(id=${aluno.idAluno})}">Editar</a>
