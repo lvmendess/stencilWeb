@@ -22,8 +22,8 @@ public class UserController {
         this.repo = repo;
     }
 
-    @GetMapping("/admin/dashboard")
-    public String dashboard() {
+    @GetMapping("/admin/menu")
+    public String menu() {
         return "dashboard";
     }
 

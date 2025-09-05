@@ -30,6 +30,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ROLE_A")
+                        .requestMatchers("/professor/**").hasRole("ROLE_T")
+                        .requestMatchers("/aluno/**").hasRole("ROLE_S")
                         .anyRequest().authenticated()
                     )
                 .formLogin(form -> form
@@ -58,7 +61,7 @@ public class SecurityConfig {
             String redirect = "/login";
 
             if(authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_A"))){
-                redirect = "/admin/dashboard";
+                redirect = "/admin/menu";
             }else if(authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_T"))){
                 redirect = "/professor/menu";
             }else if(authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_S"))){
