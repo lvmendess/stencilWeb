@@ -20,6 +20,12 @@ import com.stencilwebclient.stencilweb.models.Aluno;
 import com.stencilwebclient.stencilweb.repository.AlunoRepository;
 import com.stencilwebclient.stencilweb.service.AlunoService;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 @Controller
 public class AlunoController {

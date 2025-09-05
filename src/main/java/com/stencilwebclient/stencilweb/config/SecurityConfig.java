@@ -8,12 +8,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.stencilwebclient.stencilweb.models.Usuario;
+import com.stencilwebclient.stencilweb.repository.UsuarioRepository;
 import com.stencilwebclient.stencilweb.service.UsuarioDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    //private final UsuarioRepository userRepo;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -21,14 +26,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationSuccessHandler successHandler) throws Exception{
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error").permitAll()
                         .anyRequest().authenticated()
                     )
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/home", true).permitAll()
+                        .successHandler(successHandler).permitAll()
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")    
@@ -43,5 +48,27 @@ public class SecurityConfig {
             provider.setUserDetailsService(userDetailsService);
             provider.setPasswordEncoder(passwordEncoder);
             return provider;
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler(UsuarioRepository userRepo){
+        return (request, response, authentication) -> {
+            var authorities = authentication.getAuthorities();
+            String username = authentication.getName();
+            String redirect = "/login";
+
+            if(authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_A"))){
+                redirect = "/admin/dashboard";
+            }else if(authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_T"))){
+                redirect = "/professor/menu";
+            }else if(authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_S"))){
+                Usuario user = userRepo.findByNomeUsuario(username)
+                .orElseThrow(()-> new IllegalStateException("usuario não encontrado"));
+                int id = user.getIdUsuario();
+                redirect = "/aluno/"+id;
+            }
+
+            response.sendRedirect(redirect);
+        };
     }
 }
