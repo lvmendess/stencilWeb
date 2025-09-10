@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.stencilwebclient.stencilweb.models.AlunoDTO;
+import com.stencilwebclient.stencilweb.repository.UsuarioRepository;
+import com.stencilwebclient.stencilweb.service.UsuarioDetailsService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,12 +40,16 @@ public class AlunoController {
 
     private final AlunoRepository repo;
     private final AlunoService service;
+    private final UsuarioRepository userRepo;
+    private final UsuarioDetailsService userDetailsService;
     @Value("${app.upload.dir}")
     private String uploadDir;
 
-    public AlunoController(AlunoService service, AlunoRepository repo){
+    public AlunoController(AlunoService service, AlunoRepository repo, UsuarioRepository userRepo, UsuarioDetailsService userDetailsService){
         this.service = service;
         this.repo = repo;
+        this.userRepo = userRepo;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping("")
@@ -67,11 +73,6 @@ public class AlunoController {
         }
         model.addAttribute("aluno", service.getAlunoById(id));
         return "aluno";
-    }
-
-    @GetMapping("/info")
-    public String info(){
-        return "funcionando";
     }
 
     @GetMapping("/api/characters")

@@ -1,19 +1,40 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>StencilWEB</title>
-    </head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StencilWEB</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center my-4">Painel de Controle</h1>
+    <a class="btn btn-primary m-1" href="/admin/cadastrar">Adicionar Usuário</a>
 
-    <body>
-        <nav></nav>
-        <div class="botoes">
-            <button href="">criar professor</button>
-            <button href="">editar professor</button>
-            <button href="">remover professor</button>
-        </div>
-    </body>
-
-    <footer></footer>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome de usuário</th>
+            <th>Cargo</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.idUsuario}"></td>
+            <td th:text="${user.nomeUsuario}"></td>
+            <td th:text="${user.role}"></td>
+            <td style="white-space:nowrap">
+                <a class="btn btn-primary btn-sm" th:href="@{/admin/editar(id=${user.idUsuario})}">Editar</a>
+                <a class="btn btn-danger btn-sm" onclick="return confirm('Você tem certeza? Essa ação não pode ser desfeita.')"
+                   th:href="@{/admin/remover(id=${user.idUsuario})}">Remover</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</body>
 </html>

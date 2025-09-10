@@ -11,6 +11,8 @@ import com.stencilwebclient.stencilweb.models.SecurityUser;
 import com.stencilwebclient.stencilweb.models.Usuario;
 import com.stencilwebclient.stencilweb.repository.UsuarioRepository;
 
+import java.util.List;
+
 @Service
 public class UsuarioDetailsService implements UserDetailsService{
 
@@ -38,5 +40,20 @@ public class UsuarioDetailsService implements UserDetailsService{
         repo.save(user);
     }
 
+    public void editUser(Integer idUsuario, String nomeUsuario, String rawSenhaUsuario, char role){
+        Usuario user = getUsuarioById(idUsuario);
+        user.setNomeUsuario(nomeUsuario);
+        user.setSenhaUsuario(passwordEncoder.encode(rawSenhaUsuario));
+        user.setRole(role);
+        repo.save(user);
+    }
+
+    public List<Usuario> getAll(){
+        return repo.findAll();
+    }
+
+    public Usuario getUsuarioById(Integer id){
+        return repo.findById(id).orElse(null);
+    }
     
 }
