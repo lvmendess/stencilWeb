@@ -21,6 +21,7 @@ public class SecurityUser implements UserDetails{
         role += user.getRole();
         String prefixedRole = role.startsWith("ROLE_") ? role : "ROLE_" + role;
         return List.of(new SimpleGrantedAuthority(prefixedRole));
+        //return List.of(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override

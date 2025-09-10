@@ -30,9 +30,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ROLE_A")
-                        .requestMatchers("/professor/**").hasRole("ROLE_T")
-                        .requestMatchers("/aluno/**").hasRole("ROLE_S")
+                        .requestMatchers("/admin/**", "/professor/**", "/aluno/**").hasRole("A")
+                        .requestMatchers("/professor/**").hasRole("T")
+                        .requestMatchers("/aluno/**").hasRole("S")
                         .anyRequest().authenticated()
                     )
                 .formLogin(form -> form
