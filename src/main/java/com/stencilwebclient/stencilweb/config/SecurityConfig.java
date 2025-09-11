@@ -30,9 +30,9 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login", "/error").permitAll()
-                        .requestMatchers("/admin/**", "/professor/**", "/aluno/**").hasRole("A")
-                        .requestMatchers("/professor/**").hasRole("T")
-                        .requestMatchers("/aluno/**").hasRole("S")
+                        .requestMatchers("/admin/**").hasRole("A")
+                        .requestMatchers("/professor/**").hasAnyRole("T","A")
+                        .requestMatchers("/aluno/**").hasAnyRole("S", "T", "A")
                         .anyRequest().authenticated()
                     )
                 .formLogin(form -> form
@@ -68,7 +68,7 @@ public class SecurityConfig {
                 Usuario user = userRepo.findByNomeUsuario(username)
                 .orElseThrow(()-> new IllegalStateException("usuario não encontrado"));
                 int id = user.getIdUsuario();
-                redirect = "/aluno/"+id;
+                redirect = "/aluno/user/"+id;
             }
 
             response.sendRedirect(redirect);

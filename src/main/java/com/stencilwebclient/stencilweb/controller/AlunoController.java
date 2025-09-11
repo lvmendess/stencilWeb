@@ -75,6 +75,13 @@ public class AlunoController {
         return "aluno";
     }
 
+    @GetMapping("/aluno/user/{id}")
+    public String redirectAluno(@PathVariable int id) {
+        Integer idAluno = service.findAlunoIdByIdUsuario(id);
+        return "redirect:/aluno/"+idAluno;
+    }
+    
+
     @GetMapping("/api/characters")
     public List<com.stencilwebclient.stencilweb.models.Aluno> getAllAlunos() {
         return repo.findAll();
