@@ -55,5 +55,9 @@ public class UsuarioDetailsService implements UserDetailsService{
     public Usuario getUsuarioById(Integer id){
         return repo.findById(id).orElse(null);
     }
+
+    public List<String> findUsuariosSemAluno(){
+        return repo.findUsuariosWithoutAluno();
+    }
     
 }

@@ -14,7 +14,4 @@ public interface AlunoRepository extends JpaRepository<Aluno, Integer>{
 
     @Query("SELECT a.idAluno FROM Aluno a WHERE a.user.idUsuario = :userId")
     Integer findAlunoIdByIdUsuario(@Param("userId") Integer userId);
-
-    @Query("SELECT u.nomeUsuario FROM Usuario u LEFT JOIN Aluno a ON a.usuario_id_s = u.idUsuario WHERE a.usuario_id_s IS NULL AND u.roleUsuario = 'S';")
-    List<String> findUsuariosWithoutAluno();
 }
