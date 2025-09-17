@@ -1,0 +1,42 @@
+networks:
+  stencilweb-net:
+
+volumes:
+  mysql-data:
+  uploads-data:   # new volume for uploaded images
+
+services:
+  api_service:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - stencilweb-net
+    environment:
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/Stencil
+      - APP_UPLOAD_DIR=/uploads/images
+    depends_on:
+      - mysqldb
+    volumes:
+      - ./.m2:/root/.m2
+      - uploads-data:/uploads/images   # mount the upload directory
+
+  mysqldb:
+    image: "mysql:8.0"
+    environment:
+      MYSQL_DATABASE: Stencil
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    networks:
+      - stencilweb-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - mysql-data:/var/lib/mysql

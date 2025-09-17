@@ -1,0 +1,60 @@
+DROP DATABASE IF EXISTS Stencil;
+CREATE DATABASE IF NOT EXISTS Stencil;
+USE Stencil;
+
+CREATE TABLE IF NOT EXISTS Usuario(
+	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nomeUsuario VARCHAR(30) UNIQUE NOT NULL,
+    senhaUsuario VARCHAR(100) NOT NULL,
+    roleUsuario CHAR(1) NOT NULL,
+    CHECK (roleUsuario IN ('A', 'T', 'S'))
+);
+
+CREATE TABLE IF NOT EXISTS Aluno(
+	idAluno INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id_s INT,
+    FOREIGN KEY (usuario_id_s) REFERENCES Usuario (idUsuario)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    nomeAluno VARCHAR(25) NOT NULL UNIQUE,
+    nick VARCHAR(25) NOT NULL,
+    xp INT NOT NULL,
+    skin VARCHAR(255) NOT NULL,
+    ofensiva INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Professores(
+	idProf INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id_t INT,
+    FOREIGN KEY (usuario_id_t) REFERENCES Usuario (idUsuario)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    nomeProf VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Turma(
+	idTurma INT PRIMARY KEY AUTO_INCREMENT,
+    nomeTurma VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Turma_Aluno(
+	id_Aluno INT,
+    FOREIGN KEY (id_Aluno) REFERENCES Aluno (idAluno)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    id_Turma INT PRIMARY KEY,
+    FOREIGN KEY (id_Turma) REFERENCES Turma (idTurma)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS Turma_Prof(
+	id_Prof INT,
+    FOREIGN KEY (id_Prof) REFERENCES Professores (idProf)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    id_Turma INT PRIMARY KEY,
+    FOREIGN KEY (id_Turma) REFERENCES Turma (idTurma)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
+);

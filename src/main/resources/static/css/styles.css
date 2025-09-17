@@ -1,3 +1,41 @@
 body{
-    background-color: green;
+    /*noinspection CssUnknownTarget*/
+    background-image: url("/images/bg1.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: flex-start;
+    margin: 5vh 0 0 5vh;
+    max-width: 55%;
+    gap: 2em;
+}
+
+#panel{
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+/*.charBox{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}*/
+
+.charPanel{}
+
+.charDiv{}
+
+img.charSkin{
+    width: 64px;
+    height: 64px;
+    object-fit: none;
+    object-position: -32px 0px;
 }
