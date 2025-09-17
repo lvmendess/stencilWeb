@@ -10,6 +10,9 @@ body{
 #panel{
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
+    width: 100%;
+    max-width: 380px;
+    border-radius: 1rem;
 }
 
 #xp-bar{
@@ -25,4 +28,19 @@ img.charSkin{
     height: 64px;
     object-fit: none;
     object-position: -32px 0px;
+}
+
+#panel .card-body {
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#panel .card-body img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }

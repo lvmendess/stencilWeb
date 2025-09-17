@@ -65,6 +65,15 @@ public class Aluno {
         this.nick = nick;
     }
 
+    public Aluno(String nomeAluno, @Nullable String nick, String skin, int xp, int ofensiva, Usuario user) {
+        this.nomeAluno = nomeAluno;
+        this.nick = nick;
+        this.skin = skin;
+        this.xp = xp;
+        this.ofensiva = ofensiva;
+        this.user = user;
+    }
+
     public int getIdAluno() {
         return idAluno;
     }

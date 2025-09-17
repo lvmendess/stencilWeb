@@ -93,6 +93,7 @@ public class UserController {
             if (role != 'A' && role != 'T' && role != 'S') {
                 throw new IllegalArgumentException("Invalid role");
             }
+            System.out.println(usuarioDTO.getRole());
             service.editUser(id, usuarioDTO.getNomeUsuario(), usuarioDTO.getSenhaUsuario(), role);
         } catch (Exception e) {
             log.error("Error updating usuario", e);

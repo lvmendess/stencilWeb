@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.stencilwebclient.stencilweb.models.AlunoDTO;
+import com.stencilwebclient.stencilweb.models.Usuario;
 import com.stencilwebclient.stencilweb.repository.UsuarioRepository;
 import com.stencilwebclient.stencilweb.service.UsuarioDetailsService;
 import jakarta.validation.Valid;
@@ -91,6 +92,8 @@ public class AlunoController {
     public String showCreatePage(Model model) {
         AlunoDTO alunoDTO = new AlunoDTO();
         model.addAttribute("alunoDTO", alunoDTO);
+        List<String> usuarios = userDetailsService.findUsuariosSemAluno();
+        model.addAttribute("usuarios", usuarios);
         return "createAluno";
     }
 
@@ -120,11 +123,14 @@ public class AlunoController {
             return "createAluno";
         }
 
-        Aluno aluno = new Aluno(alunoDTO.getNomeAluno(),
+        Aluno aluno = new Aluno(
+                alunoDTO.getNomeAluno(),
                 alunoDTO.getNick(),
+                storageFileName,
                 alunoDTO.getXp(),
                 alunoDTO.getOfensiva(),
-                storageFileName);
+                userDetailsService.findUserByUsername(alunoDTO.getNomeUsuario())
+        );
         repo.save(aluno);
 
         return "redirect:/professor/menu";
@@ -145,6 +151,9 @@ public class AlunoController {
             alunoDTO.setXp(aluno.getXp());
             alunoDTO.setOfensiva(aluno.getOfensiva());
             model.addAttribute("alunoDTO", alunoDTO);
+            List<String> usuarios = userDetailsService.findUsuariosSemAluno();
+            usuarios.addFirst(aluno.getUser().getNomeUsuario());
+            model.addAttribute("usuarios", usuarios);
         } catch (Exception e) {
             log.error("Error preparing edit page", e);
         }
@@ -184,11 +193,11 @@ public class AlunoController {
                     return "editAluno";
                 }
             }
-
             aluno.setNomeAluno(alunoDTO.getNomeAluno());
             aluno.setNick(alunoDTO.getNick());
             aluno.setXp(aluno.getXp() + alunoDTO.getIncrementoXp());
             aluno.setOfensiva(aluno.getOfensiva() + alunoDTO.getIncrementoOfensiva());
+            aluno.setUser(userDetailsService.findUserByUsername(alunoDTO.getNomeUsuario()));
             repo.save(aluno);
         } catch (Exception e) {
             log.error("Error updating aluno", e);

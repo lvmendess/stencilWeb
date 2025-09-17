@@ -13,6 +13,9 @@ public class AlunoDTO {
     @NotEmpty(message = "O apelido do aluno é necessário")
     private String nick;
 
+    @NotEmpty(message = "O usuário vinculado é necessário")
+    private String nomeUsuario;
+
     private MultipartFile skin;
 
     @Min(0)
@@ -39,6 +42,14 @@ public class AlunoDTO {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public MultipartFile getSkin() {

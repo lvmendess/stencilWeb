@@ -32,6 +32,10 @@ public class UsuarioDetailsService implements UserDetailsService{
             .orElseThrow(()-> new UsernameNotFoundException("User not found"));
     }
 
+    public Usuario findUserByUsername(String username){
+        return repo.findByNomeUsuario(username).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    }
+
     public void createUser(String nomeUsuario, String rawSenhaUsuario, char role){
         Usuario user = new Usuario();
         user.setNomeUsuario(nomeUsuario);

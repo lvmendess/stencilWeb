@@ -15,6 +15,17 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Atribuir usuário</label>
+          <div class="col-sm-8">
+            <select class="form-select" th:field="${alunoDTO.nomeUsuario}">
+              <option value="" disabled selected>Selecione...</option>
+              <option th:each="u : ${usuarios}" th:value="${u}" th:text="${u}"></option>
+            </select>
+            <p th:if="${#fields.hasErrors('nomeUsuario')}" th:errorclass="text-danger" th:errors="${alunoDTO.nomeUsuario}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
           <label class="col-sm-4 col-form-label">Nome do aluno</label>
           <div class="col-sm-8">
             <input class="form-control" th:field="${alunoDTO.nomeAluno}">

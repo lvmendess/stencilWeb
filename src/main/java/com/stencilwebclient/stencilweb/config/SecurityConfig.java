@@ -22,7 +22,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder(10);
+        return new BCryptPasswordEncoder(12);
     }
 
     @Bean
@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .successHandler(successHandler).permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")    
+                        .logoutSuccessUrl("/login")
                 )
                 .build();
     }

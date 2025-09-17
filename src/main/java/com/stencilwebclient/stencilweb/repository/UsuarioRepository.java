@@ -11,6 +11,12 @@ import com.stencilwebclient.stencilweb.models.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
     Optional<Usuario> findByNomeUsuario(String nomeUsuario);
 
-    @Query("SELECT u.nomeUsuario FROM Usuario u LEFT JOIN Aluno a ON a.usuario_id_s = u.idUsuario WHERE a.usuario_id_s IS NULL AND u.roleUsuario = 'S';")
+    @Query("""
+        SELECT u.nomeUsuario
+        FROM Usuario u
+        LEFT JOIN Aluno a ON a.user = u
+        WHERE a.user IS NULL
+        AND u.role = 'S'
+    """)
     List<String> findUsuariosWithoutAluno();
 }

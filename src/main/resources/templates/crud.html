@@ -10,11 +10,37 @@
 <body>
     <div class="container">
         <h1 class="text-center my-4">Painel de Controle</h1>
+
+        <div class="bg-light">
+            <div class="container-fluid d-flex align-items-center justify-content-between py-2">
+                <!-- Left: Brand -->
+                <div class="fw-bold">STENCIL</div>
+
+                <!-- Center: Links -->
+                <div class="d-flex">
+                    <div class="px-3">
+                        <a href="/admin/menu" class="text-decoration-none">Admin</a>
+                    </div>
+                    <div class="px-3">
+                        <a href="/professor/menu" class="text-decoration-none">Professor</a>
+                    </div>
+                </div>
+
+                <!-- Right: Logout -->
+                <div>
+                    <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
         <a class="btn btn-primary m-1" href="/professor/criar">Adicionar Aluno</a>
 
         <table class="table">
             <thead>
                 <tr>
+                    <th>Nome de usuário</th>
                     <th>Nome</th>
                     <th>Apelido</th>
                     <th>Nível</th>
@@ -26,6 +52,7 @@
             </thead>
             <tbody>
                 <tr th:each="aluno : ${alunos}">
+                    <td th:text="${aluno.user?.nomeUsuario}"></td>
                     <td th:text="${aluno.nomeAluno}"></td>
                     <td th:text="${aluno.nick}"></td>
                     <td th:text="${aluno.xp/1000 + 1}"></td>
