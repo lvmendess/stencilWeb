@@ -1,10 +1,29 @@
 body{
     /*noinspection CssUnknownTarget*/
-    background-image: url("/images/bg1.png");
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
     background-size: cover;
+}
+
+.bg-image-1{
+    /*noinspection CssUnknownTarget*/
+    background-image: url("/images/bg1.png");
+}
+
+.bg-image-2{
+    /*noinspection CssUnknownTarget*/
+    background-image: url("/images/bg2.png");
+}
+
+.bg-image-3{
+    /*noinspection CssUnknownTarget*/
+    background-image: url("/images/bg3.png");
+}
+
+.bg-image-4{
+    /*noinspection CssUnknownTarget*/
+    background-image: url("/images/bg4.png");
 }
 
 .grid{
@@ -20,6 +39,9 @@ body{
 #panel{
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
+    width: 100%;
+    max-width: 380px;
+    border-radius: 1rem;
 }
 
 /*.charBox{
