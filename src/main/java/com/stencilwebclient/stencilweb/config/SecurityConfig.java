@@ -29,13 +29,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationSuccessHandler successHandler) throws Exception{
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/error").permitAll()
+                        .requestMatchers("/login", "/error", "/images/**", "/css/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("A")
                         .requestMatchers("/professor/**").hasAnyRole("T","A")
                         .requestMatchers("/aluno/**").hasAnyRole("S", "T", "A")
                         .anyRequest().authenticated()
                     )
                 .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
                         .successHandler(successHandler).permitAll()
                 )
                 .logout(logout -> logout

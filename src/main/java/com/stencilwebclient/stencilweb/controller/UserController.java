@@ -1,26 +1,16 @@
 package com.stencilwebclient.stencilweb.controller;
 
-import com.stencilwebclient.stencilweb.models.Aluno;
-import com.stencilwebclient.stencilweb.models.AlunoDTO;
 import com.stencilwebclient.stencilweb.models.UsuarioDTO;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import com.stencilwebclient.stencilweb.models.Usuario;
-import com.stencilwebclient.stencilweb.repository.AlunoRepository;
 import com.stencilwebclient.stencilweb.repository.UsuarioRepository;
-import com.stencilwebclient.stencilweb.service.AlunoService;
 import com.stencilwebclient.stencilweb.service.UsuarioDetailsService;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Controller
 public class UserController {
@@ -37,7 +27,7 @@ public class UserController {
     @GetMapping("/admin/menu")
     public String menu(Model model) {
         model.addAttribute("users", service.getAll());
-        return "dashboard";
+        return "dashboardAdmin";
     }
 
     @GetMapping("/admin/cadastrar")
