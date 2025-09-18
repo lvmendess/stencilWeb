@@ -36,6 +36,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                     )
                 .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
                         .successHandler(successHandler).permitAll()
                 )
                 .logout(logout -> logout

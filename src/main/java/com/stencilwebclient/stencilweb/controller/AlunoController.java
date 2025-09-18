@@ -1,16 +1,12 @@
 package com.stencilwebclient.stencilweb.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Date;
 import java.util.List;
 
 import com.stencilwebclient.stencilweb.models.AlunoDTO;
-import com.stencilwebclient.stencilweb.models.Usuario;
 import com.stencilwebclient.stencilweb.repository.UsuarioRepository;
 import com.stencilwebclient.stencilweb.service.UsuarioDetailsService;
 import jakarta.validation.Valid;
@@ -30,8 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 
 @Controller
@@ -61,7 +55,7 @@ public class AlunoController {
     @GetMapping("/professor/menu")
     public String listAlunos(Model model) {
         model.addAttribute("alunos", service.getAllAlunos());
-        return "crud";
+        return "dashboardProf";
     }
 
     @GetMapping("/aluno/{id}")
