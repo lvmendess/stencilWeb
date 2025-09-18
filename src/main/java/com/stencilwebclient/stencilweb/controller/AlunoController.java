@@ -47,11 +47,6 @@ public class AlunoController {
         this.userDetailsService = userDetailsService;
     }
 
-    @GetMapping("")
-    public String landingPage() {
-        return "redirect:/professor/menu";
-    }
-
     @GetMapping("/professor/menu")
     public String listAlunos(Model model) {
         model.addAttribute("alunos", service.getAllAlunos());
