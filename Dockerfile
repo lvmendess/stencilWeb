@@ -4,7 +4,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY .env .
 COPY src/ src/
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -Dmaven.javadoc.skip=true -P deployment
 
 #run
 RUN mkdir -p /uploads/images
