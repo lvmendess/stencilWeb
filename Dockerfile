@@ -18,5 +18,5 @@ RUN chmod +x /wait-for-it.sh
 
 EXPOSE 8080
 # Wait for MySQL before launching the app
-ENTRYPOINT ["/wait-for-it.sh", "mysqldb:3306", "--timeout=60", "--", "java", "-jar", "app.jar"]
+ENTRYPOINT ["/wait-for-it.sh", "mysqldb:3306", "--timeout=600", "--", "java", "-jar", "app.jar"]
 #CMD ["mvn", "spring-boot:run"]
