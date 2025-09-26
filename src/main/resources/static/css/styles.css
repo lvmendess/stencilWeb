@@ -8,22 +8,22 @@ body{
 
 .bg-image-1{
     /*noinspection CssUnknownTarget*/
-    background-image: url("/images/bg1.png");
+    background-image: url("/images/bg1.jpg");
 }
 
 .bg-image-2{
     /*noinspection CssUnknownTarget*/
-    background-image: url("/images/bg2.png");
+    background-image: url("/images/bg2.jpg");
 }
 
 .bg-image-3{
     /*noinspection CssUnknownTarget*/
-    background-image: url("/images/bg3.png");
+    background-image: url("/images/bg3.jpg");
 }
 
 .bg-image-4{
     /*noinspection CssUnknownTarget*/
-    background-image: url("/images/bg4.png");
+    background-image: url("/images/bg4.jpg");
 }
 
 .grid{
