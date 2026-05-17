@@ -100,7 +100,7 @@ stencilWeb/
 │   ├── main/
 │   │   ├── java/com/stencilwebclient/stencilweb/
 │   │   │   ├── controller/     # Controllers MVC
-│   │   │   ├── service/        # Regras de negócio
+│   │   │   ├── service/        # Serviços
 │   │   │   ├── repository/     # Repositórios JPA
 │   │   │   ├── model/          # Entidades JPA
 │   │   │   └── config/         # Configurações de segurança e aplicação
