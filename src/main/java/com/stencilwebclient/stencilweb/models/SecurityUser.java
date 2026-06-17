@@ -15,6 +15,10 @@ public class SecurityUser implements UserDetails{
         this.user = user;
     }
 
+    public int getIdUsuario() {
+        return user.getIdUsuario(); // exposed for SpEL
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
         String role = "ROLE_";

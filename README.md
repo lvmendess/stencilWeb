@@ -59,7 +59,14 @@ cd stencilWeb
 DB_PASSWORD=sua_senha_aqui
 ```
 
-3. Suba todos os serviços:
+3. Crie um arquivo `env.properties` no diretório src\main\resources\env.properties com usuário e senha do banco:
+
+```env.properties
+DB_PASSWORD=sua_senha_aqui
+DB_USER=seu_usuario_aqui
+```
+
+4. Suba todos os serviços:
 
 ```bash
 docker-compose up --build
@@ -132,7 +139,8 @@ As imagens enviadas pelos usuários são persistidas em um volume Docker (`uploa
 
 | Variável | Descrição |
 |---|---|
-| `DB_PASSWORD` | Senha root do MySQL (obrigatório no `.env`) |
+| `DB_PASSWORD` | Senha root do MySQL (obrigatório no `.env` e `env.properties`) |
+| `DB_USER` | Usuário root do MySQL (obrigatório no `env.properties`)
 | `APP_UPLOAD_DIR` | Diretório de armazenamento das imagens (padrão: `/uploads/images`) |
 
 ---
