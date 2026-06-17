@@ -47,6 +47,11 @@ public class AlunoController {
         this.userDetailsService = userDetailsService;
     }
 
+    @GetMapping("/professor/canvas")
+    public String showCanvas() {
+        return "pixelArtTool";
+    }
+
     @GetMapping("/professor/menu")
     public String listAlunos(Model model) {
         model.addAttribute("alunos", service.getAllAlunos());

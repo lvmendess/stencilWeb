@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Tool</title>
+    <link rel="stylesheet" th:href="@{/css/canvas.css}">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light text-black min-vh-100 d-flex flex-column align-items-center py-4">
+
+    <div class="container d-flex flex-column gap-4 px-3" style="max-width: 900px;">
+        
+        <!-- Controls Panel -->
+        <div class="bg-secondary bg-opacity-25 p-3 rounded shadow d-flex flex-wrap gap-2 align-items-center justify-content-center border border-secondary">
+            
+            <label class="btn btn-light border-secondary d-flex align-items-center gap-2 mb-0 cursor-pointer text-nowrap">
+                📁 Upload PNG
+                <input type="file" id="uploadInput" accept="image/png" class="d-none">
+            </label>
+            
+            <button id="downloadBtn" class="btn btn-light border-secondary text-success d-flex align-items-center gap-2 text-nowrap">
+                💾 Save
+            </button>
+
+            <div class="vr d-none d-sm-block mx-1"></div>
+
+            <input type="color" id="colorPicker" value="#ffffff" title="Color Picker" class="mx-1">
+            
+            <button class="btn btn-primary d-flex align-items-center gap-2 text-nowrap" data-tool="pencil" title="Pencil">✏️ Pencil</button>
+            <button class="btn btn-light border-secondary d-flex align-items-center gap-2 text-nowrap" data-tool="eraser" title="Eraser">🧽 Eraser</button>
+            <button class="btn btn-light border-secondary d-flex align-items-center gap-2 text-nowrap" data-tool="bucket" title="Bucket Fill">🪣 Bucket</button>
+
+            <div class="vr d-none d-sm-block mx-1"></div>
+
+            <button id="undoBtn" class="btn btn-light border-secondary text-nowrap" disabled title="Undo">↩️ Undo</button>
+            <button id="redoBtn" class="btn btn-light border-secondary text-nowrap" disabled title="Redo">↪️ Redo</button>
+
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="d-flex justify-content-center flex-grow-1 w-100 px-3">
+            <div class="position-relative border border-secondary shadow overflow-hidden w-100" style="max-width: 384px; aspect-ratio: 1/2; background-color: #212529;">
+                <!-- Internal resolution is strictly 128x256 -->
+                <canvas id="mainCanvas" width="128" height="256" class="position-absolute top-0 start-0 w-100 h-100 pixelated"></canvas>
+                <!-- 32x64 visual grid representation -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 pointer-events-none grid-overlay" style="pointer-events: none;"></div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/scripts/pixelArtScript.js}"></script>
+</body>
+</html>
