@@ -2,7 +2,7 @@ package com.stencilwebclient.stencilweb.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import com.stencilwebclient.stencilweb.service.UsuarioDetailsService;
-import com.stencilwebclient.stencilweb.models.Usuario; // adjust if your model class name is different
+import com.stencilwebclient.stencilweb.models.Usuario; 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

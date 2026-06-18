@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
@@ -61,6 +62,7 @@ public class AlunoController {
     }
 
     @GetMapping("/aluno/{id}")
+    @PreAuthorize("hasRole('ROLE_A') or @securityHelper.isOwner(#id, authentication.principal.idUsuario)")
     public String getAlunoById(Model model, @PathVariable int id){
         Aluno aluno = service.getAlunoById(id);
         if(aluno==null){
@@ -79,6 +81,7 @@ public class AlunoController {
     }
 
     @GetMapping("/aluno/{id}/canvas")
+    @PreAuthorize("hasRole('ROLE_A') or @securityHelper.isOwner(#id, authentication.principal.idUsuario)")
     public String showCanvas(@PathVariable int id, Model model) {
         Aluno aluno = repo.findById(id).orElse(null);
         if (aluno == null) {
@@ -90,6 +93,7 @@ public class AlunoController {
     }
 
     @PostMapping("/aluno/{id}/canvas")
+    @PreAuthorize("hasRole('ROLE_A') or @securityHelper.isOwner(#id, authentication.principal.idUsuario)")
     public String saveCanvasForm(@PathVariable int id, @RequestParam("skinFile") MultipartFile file) {
         Aluno aluno = repo.findById(id).orElse(null);
 
