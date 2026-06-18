@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 
 @Controller
@@ -46,6 +48,11 @@ public class AlunoController {
         this.repo = repo;
         this.userRepo = userRepo;
         this.userDetailsService = userDetailsService;
+    }
+
+    @GetMapping("/professor/canvas")
+    public String showCanvas() {
+        return "pixelArtTool";
     }
 
     @GetMapping("/professor/menu")
@@ -72,7 +79,58 @@ public class AlunoController {
         Integer idAluno = service.findAlunoIdByIdUsuario(id);
         return "redirect:/aluno/"+idAluno;
     }
-    
+
+    @GetMapping("/aluno/{id}/canvas")
+    @PreAuthorize("hasRole('ROLE_A') or @securityHelper.isOwner(#id, authentication.principal.idUsuario)")
+    public String showCanvas(@PathVariable int id, Model model) {
+        Aluno aluno = repo.findById(id).orElse(null);
+        if (aluno == null) {
+            log.warn("Aluno {} not found for canvas", id);
+            return "redirect:/professor/menu";
+        }
+        model.addAttribute("aluno", aluno);
+        return "pixelArtToolStudent";
+    }
+
+    @PostMapping("/aluno/{id}/canvas")
+    @PreAuthorize("hasRole('ROLE_A') or @securityHelper.isOwner(#id, authentication.principal.idUsuario)")
+    public String saveCanvasForm(@PathVariable int id, @RequestParam("skinFile") MultipartFile file) {
+        Aluno aluno = repo.findById(id).orElse(null);
+
+        if (aluno == null) {
+            log.warn("Aluno {} not found during canvas save", id);
+            return "redirect:/professor/menu";
+        }
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                String original = Paths.get(file.getOriginalFilename()).getFileName().toString();
+                String storageFileName = System.currentTimeMillis() + "_" + original;
+                Path uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
+
+                Files.createDirectories(uploadPath);
+                Path target = uploadPath.resolve(storageFileName);
+
+                // Remove existing skin file from disk
+                deleteImage(aluno.getSkin());
+
+                // Transfer the new file from the form payload to the disk
+                file.transferTo(target.toFile());
+
+                // Persist the file name reference in the database
+                aluno.setSkin(storageFileName);
+                repo.save(aluno);
+
+            } catch (IOException e) {
+                log.error("Failed saving canvas file for aluno {}", id, e);
+                // Handle error scenario, optionally redirecting to an error page or back to canvas
+                return "redirect:/aluno/" + id + "/canvas?error=true";
+            }
+        }
+
+        // Redirect back to the student's profile upon success
+        return "redirect:/aluno/" + id;
+    }
 
     @GetMapping("/api/characters")
     public List<com.stencilwebclient.stencilweb.models.Aluno> getAllAlunos() {

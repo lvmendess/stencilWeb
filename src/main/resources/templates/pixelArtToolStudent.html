@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Tool</title>
+    <link rel="stylesheet" th:href="@{/css/canvas.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light text-black min-vh-100 d-flex flex-column align-items-center py-4">
+
+<div id="alunoData"
+     th:data-id="${aluno.idAluno}"
+     th:data-skin="${aluno.skin != null ? '/' + aluno.skin : ''}"
+     class="d-none"></div>
+
+<div class="container d-flex flex-column gap-4 px-3" style="max-width: 900px;">
+
+    <div class="bg-secondary bg-opacity-25 p-3 rounded shadow d-flex flex-wrap gap-2 align-items-center justify-content-center border border-secondary">
+
+        <form id="canvasForm" th:action="@{|/aluno/${aluno.idAluno}/canvas|}" method="post" enctype="multipart/form-data" class="m-0 d-flex">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <input type="file" id="hiddenFileInput" name="skinFile" class="d-none" accept="image/png">
+
+            <button type="button" id="saveServerBtn" class="btn btn-light border-secondary text-success d-flex align-items-center gap-2 text-nowrap">
+                💾 Save to Profile
+            </button>
+        </form>
+
+        <div class="vr d-none d-sm-block mx-1"></div>
+
+        <input type="color" id="colorPicker" value="#ffffff" title="Color Picker" class="mx-1">
+
+        <button class="btn btn-primary d-flex align-items-center gap-2 text-nowrap" data-tool="pencil" title="Pencil">✏️ Pencil</button>
+        <button class="btn btn-light border-secondary d-flex align-items-center gap-2 text-nowrap" data-tool="eraser" title="Eraser">🧽 Eraser</button>
+        <button class="btn btn-light border-secondary d-flex align-items-center gap-2 text-nowrap" data-tool="bucket" title="Bucket Fill">🪣 Bucket</button>
+
+        <div class="vr d-none d-sm-block mx-1"></div>
+
+        <button id="undoBtn" class="btn btn-light border-secondary text-nowrap" disabled title="Undo">↩️ Undo</button>
+        <button id="redoBtn" class="btn btn-light border-secondary text-nowrap" disabled title="Redo">↪️ Redo</button>
+
+    </div>
+
+    <div class="d-flex justify-content-center flex-grow-1 w-100 px-3">
+        <div class="position-relative border border-secondary shadow overflow-hidden w-100" style="max-width: 384px; aspect-ratio: 1/2; background-color: #212529;">
+            <canvas id="mainCanvas" width="128" height="256" class="position-absolute top-0 start-0 w-100 h-100 pixelated"></canvas>
+            <div class="position-absolute top-0 start-0 w-100 h-100 pointer-events-none grid-overlay" style="pointer-events: none;"></div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/scripts/pixelArtScriptStudent.js}"></script>
+</body>
+</html>
