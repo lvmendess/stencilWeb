@@ -9,17 +9,20 @@
 </head>
 
 <body class="bg-light">
-    <div class="position-absolute top-0 start-0 m-2">
-        <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
-    </div>
 
-    <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center">
+
+        <div class="d-flex gap-5 mb-3">
+            <a href="/logout" class="btn btn-danger">Logout</a>
+            <a class="btn btn-primary" th:href="'/aluno/' + ${aluno.idAluno} + '/canvas'" role="button">Customizar Avatar</a>
+        </div>
+
         <div class="card text-center shadow" id="panel">
             <div class="card-header">
                 <div class="nickname fw-semibold" th:text="${aluno.nick}"></div>
             </div>
             <div class="card-body">
-                <img th:src="@{/{filename}(filename=${aluno.skin})}" alt="Skin">
+                <img class="img-fluid w-75 object-fit-cover rounded" th:src="@{/{filename}(filename=${aluno.skin})}" alt="Skin">
             </div>
             <div class="card-footer">
                 <p class="mb-1" th:text="'Nível ' + ${aluno.getLevel()}"></p>
